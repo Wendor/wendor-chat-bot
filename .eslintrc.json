@@ -1,7 +1,7 @@
-module.exports = {
-  env: {
-    browser: true,
-    commonjs: true,
+{
+  "env": {
+    "browser": true,
+    "commonjs": true
   },
   "plugins": [
     "@typescript-eslint",
@@ -14,20 +14,20 @@ module.exports = {
     "plugin:prettier/recommended",
     "prettier"
   ],
-  parserOptions: {
-    ecmaVersion: 12,
-    project: './tsconfig.json',
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "project": "./tsconfig.json"
   },
-  rules: {
+  "rules": {
     // Не ругаться на кривые отступы
-    indent: 'off',
+    "indent": "off",
     // Требовать ; в конце команд
-    semi: ['error', 'always'],
+    "semi": ["error", "always"],
     // Требовать запятую у последних елементов массива (если многострочное написание)
-    'comma-dangle': ['error', 'always-multiline'],
+    "comma-dangle": ["error", "always-multiline"],
     // Предпочитать константы
-    'prefer-const': 'error',
+    "prefer-const": "error"
     // Требовать отсутствие пробела перед скобками у функции
     //'space-before-function-paren': ['error', 'never'],
-  },
-};
+  }
+}
