@@ -63,7 +63,7 @@ bot.on(message('text'), async (ctx) => {
 
     const request = await chat[chatId].sendMessage(ctx.message.text);
     const answer = request.response.text();
-    console.log(request.response.candidates?.map((p) => p.content.parts));
+    //console.log(request.response.candidates?.map((p) => p.content.parts));
 
     const parts: string[] = [];
     let part: string[] = [];
@@ -90,7 +90,7 @@ bot.on(message('text'), async (ctx) => {
       });
     }
   } catch (e: unknown) {
-    console.log(e);
+    console.error(e);
     if (e instanceof Error) {
       ctx.reply(e.message, {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
