@@ -31,6 +31,10 @@ function createChat(chatId: number) {
 
 bot.on(message('text'), async (ctx) => {
   const chatId = ctx.message.chat.id;
+  if (!chat[chatId]) {
+    createChat(chatId);
+  }
+
   if (ctx.message.text == '/reset') {
     createChat(chatId);
     ctx.sendMessage('Новый чат создан');
