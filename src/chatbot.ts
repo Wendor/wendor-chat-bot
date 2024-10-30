@@ -23,7 +23,7 @@ const model = AI.getGenerativeModel({
   },
 });
 
-let chat: Record<number, ChatSession> = {};
+const chat: Record<number, ChatSession> = {};
 
 function createChat(chatId: number) {
   chat[chatId] = model.startChat();

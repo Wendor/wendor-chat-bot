@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node src/chatbot.ts",
     "dev": "nodemon --exec node --inspect -r ts-node/register src/chatbot.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
