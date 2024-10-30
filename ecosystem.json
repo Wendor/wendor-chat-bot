@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "name": "chatbot",
+      "script": "npm run start",
+      "exec_interpreter": "none",
+      "watch": true,
+      "exec_mode": "fork_mode"
+    }
+  ]
+}
