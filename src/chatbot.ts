@@ -20,7 +20,9 @@ const model = AI.getGenerativeModel({
     topP: 1,
     topK: 1,
     maxOutputTokens: 4096,
-  },
+  }
+}, {
+  baseUrl: process.env.BASE_URL || 'https://generativelanguage.googleapis.com',
 });
 
 const chat: Record<number, ChatSession> = {};
