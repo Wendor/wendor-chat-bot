@@ -45,23 +45,33 @@ function createChat(chatId: number, modelName = '') {
   chat[chatId] = model.startChat();
 }
 
+function destroyChat(chatId: number) {
+  chat[chatId] && delete chat[chatId];
+}
+
+function modelCreated(chatId: number) {
+  return !!chat[chatId];
+}
+
 bot.on(message('text'), async (ctx) => {
   const chatId = ctx.message.chat.id;
-  if (!chat[chatId]) {
-    createChat(chatId);
-  }
 
-  if (ctx.message.text.startsWith('/reset')) {
-    const tmpMsg = ctx.message.text.split('_').filter((e) => e.trim().length > 0);
-    let model = defaultModel;
-    if (models.indexOf(tmpMsg[1]) >= 0) {
-      model = tmpMsg[1];
-    }
-    createChat(chatId, model);
-    ctx.sendMessage('Новый чат создан');
+  if (ctx.message.text == '/reset') {
+    destroyChat(chatId);
+    ctx.sendMessage('Укажите модель', {
+      reply_markup: {
+        one_time_keyboard: true,
+        keyboard: [
+            ...models.map((model) => ([{
+              text: model,
+            }])),
+        ],
+      },
+    });
     return;
   }
-  if (ctx.message.text == '/start') {
+
+  if (ctx.message.text == '/start' || !modelCreated(chatId)) {
     createChat(chatId);
     ctx.sendMessage([
       'Добро пожаловать. Начинайте общение с ботом. /reset сбросит контекст бота.',
@@ -70,6 +80,14 @@ bot.on(message('text'), async (ctx) => {
     ].join('\n'));
     return;
   }
+
+  if (models.indexOf(ctx.message.text.trim()) >= 0) {
+    const model = ctx.message.text.trim();
+    createChat(chatId, model);
+    ctx.sendMessage('Новый чат создан');
+    return;
+  }
+
   if (ctx.message.text.startsWith('/')) {
     return;
   }
