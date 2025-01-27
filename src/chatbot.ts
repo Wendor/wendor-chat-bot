@@ -52,7 +52,7 @@ bot.on(message('text'), async (ctx) => {
   }
 
   if (ctx.message.text.startsWith('/reset')) {
-    const tmpMsg = ctx.message.text.split(/(\s+)/).filter((e) => e.trim().length > 0);
+    const tmpMsg = ctx.message.text.split('_').filter((e) => e.trim().length > 0);
     let model = defaultModel;
     if (models.indexOf(tmpMsg[1]) >= 0) {
       model = tmpMsg[1];
@@ -65,8 +65,8 @@ bot.on(message('text'), async (ctx) => {
     createChat(chatId);
     ctx.sendMessage([
       'Добро пожаловать. Начинайте общение с ботом. /reset сбросит контекст бота.',
-      'Для использования конкретной модели используйте /reset <имя_модели>',
-      ...models.map((model) => '/reset ' + model),
+      'Для использования конкретной модели используйте /reset_<имя_модели>',
+      ...models.map((model) => '/reset_' + model),
     ].join('\n'));
     return;
   }
