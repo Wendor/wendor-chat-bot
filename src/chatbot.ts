@@ -71,18 +71,18 @@ bot.on(message('text'), async (ctx) => {
     return;
   }
 
+  if (models.indexOf(ctx.message.text.trim()) >= 0) {
+    const model = ctx.message.text.trim();
+    createChat(chatId, model);
+    ctx.sendMessage('Новый чат создан');
+    return;
+  }
+
   if (ctx.message.text == '/start' || !modelCreated(chatId)) {
     createChat(chatId);
     ctx.sendMessage([
       'Добро пожаловать. Начинайте общение с ботом. /reset сбросит контекст бота.',
     ].join('\n'));
-    return;
-  }
-
-  if (models.indexOf(ctx.message.text.trim()) >= 0) {
-    const model = ctx.message.text.trim();
-    createChat(chatId, model);
-    ctx.sendMessage('Новый чат создан');
     return;
   }
 
