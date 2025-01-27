@@ -75,8 +75,6 @@ bot.on(message('text'), async (ctx) => {
     createChat(chatId);
     ctx.sendMessage([
       'Добро пожаловать. Начинайте общение с ботом. /reset сбросит контекст бота.',
-      'Для использования конкретной модели используйте /reset_<имя_модели>',
-      ...models.map((model) => '/reset_' + model),
     ].join('\n'));
     return;
   }
