@@ -53,7 +53,7 @@ function modelCreated(chatId: number) {
 }
 
 function selectedModel(chatId: number) {
-  return chat[chatId].model;
+  return chat[chatId].model.replace('models/', '');
 }
 
 bot.on(message('text'), async (ctx) => {
