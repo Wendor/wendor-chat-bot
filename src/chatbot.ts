@@ -25,7 +25,6 @@ if (!process.env.TELEGRAM_TOKEN || !process.env.GOOGLE_TOKEN) {
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 const AI = new GoogleGenerativeAI(process.env.GOOGLE_TOKEN);
 
-
 const chat: Record<number, ChatSession> = {};
 
 function createChat(chatId: number, modelName = '') {
@@ -53,6 +52,10 @@ function modelCreated(chatId: number) {
   return !!chat[chatId];
 }
 
+function selectedModel(chatId: number) {
+  return chat[chatId].model;
+}
+
 bot.on(message('text'), async (ctx) => {
   const chatId = ctx.message.chat.id;
 
@@ -78,10 +81,17 @@ bot.on(message('text'), async (ctx) => {
     return;
   }
 
+  if (ctx.message.text == '/model' && modelCreated(chatId)) {
+    ctx.sendMessage('Используется модель ' + selectedModel(chatId));
+    return;
+  }
+
   if (ctx.message.text == '/start' || !modelCreated(chatId)) {
     createChat(chatId);
     ctx.sendMessage([
-      'Добро пожаловать. Начинайте общение с ботом. /reset сбросит контекст бота.',
+      'Добро пожаловать. Начинайте общение с ботом.',
+      '/reset сбросит контекст бота.',
+      '/model покажет какая модель используется.',
     ].join('\n'));
     return;
   }
