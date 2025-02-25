@@ -1,4 +1,5 @@
 import { Telegraf } from 'telegraf';
+import { escapers } from "@telegraf/entity";
 import { message } from 'telegraf/filters';
 import dotenv from 'dotenv';
 import tm from 'telegramify-markdown';
@@ -134,7 +135,7 @@ bot.on(message('text'), async (ctx) => {
     }
 
     for (const ans of parts) {
-      await ctx.replyWithMarkdownV2(ans, {
+      await ctx.replyWithMarkdownV2(escapers.MarkdownV2(ans), {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         reply_to_message_id: ctx.message.message_id,
